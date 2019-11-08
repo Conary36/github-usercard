@@ -2,10 +2,14 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+const devCards = document.querySelector('.cards');
+
 const github = axios.get('https://api.github.com/users/Conary36')
   .then(response => {
-    console.log(response.data);
-    return response.data;
+    // console.log(response.data);
+    // return response.data;
+    const thisCard = newCreate(response.data);
+    devCards.append(thisCard);
   })
   .catch(err => {
     console.log('error!', err);
@@ -93,9 +97,9 @@ function newCreate(creation){
   const createUserName = document.createElement('p');
 
   //Setup structure of elements
-  create.appendChild(createImg,createInner);
+  create.append(createImg,createInner);
   //create.appendChild(createImg);
-  createInner.appendChild(createUser, createContent, createProfile, createFollowers,createFollowing, createBio);
+  createInner.append(createUser, createContent, createProfile, createFollowers,createFollowing, createBio);
   createProfile.appendChild(createLink);
 
   //set class names
@@ -106,21 +110,33 @@ function newCreate(creation){
 
   //set text content
   createImg.src = creation.avatar_url;
-  createUser.textContent = `${creation.name}`;
-  createUserName.textContent = `${creation.login}`;
-  //createProfile.textContent = `${creation.profile}`
+  createUser.textContent = `Name: ${creation.name}`;
+  createUserName.textContent = `Username: ${creation.login}`;
+  createProfile.textContent = `Profile: `
   createContent.textContent = `${creation.location}`;
   createLink.textContent = `${creation.html_url}`;
+  createLink.href = createLink.html_url;
   createFollowers.textContent = `${creation.followers}`;
   createFollowing.textContent = `${creation.following}`;
   createBio.textContent = `${creation.bio}`; 
+  
 
   return create;
 
 }
   
-const devCards = document.querySelector('.cards');
 
-const showCard = newCreate(github);
+followersArray.forEach(event =>{
+  axios.get(`https://api.github.com/users/${event}`)
+  .then(response =>{
+    const follower = newCreate(response.data);
+    const allFollower = document.querySelector('.cards');
+    allFollower.append(follower);
+  })
+  .catch(err =>{
+    console.log('No info', err);
+  })
+})
+// const showCard = newCreate(github);
 
-devCards.appendChild(showCard);
+// devCards.appendChild(showCard);
