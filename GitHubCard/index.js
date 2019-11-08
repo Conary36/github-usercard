@@ -3,6 +3,7 @@
            https://api.github.com/users/<your name>
 */
 
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -10,7 +11,7 @@
    Skip to Step 3.
 */
 
-/* Step 4: Pass the data received from Github into your function, 
+/* Step 4: Pass the data received from Github into )your function, 
            create a new component and add it to the DOM as a child of .cards
 */
 
@@ -53,3 +54,68 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
+// const githubUsernames = [
+//   'tetondan',
+//   'dustinmyers',
+//   'justsml',
+//   'luishrd',
+//   'bigknell'
+// ]
+
+
+
+function newCreate(creation){
+  //define elements
+  const create = document.createElement('div');
+  const createInner = document.createElement('div');
+  const createImg = document.createElement('img');
+  const createUser = document.createElement('h3');
+  const createContent = document.createElement('p');
+  const createProfile = document.createElement('p');
+  const createLink = document.createElement('a');
+  const createFollowers = document.createElement('p');
+  const createFollowing = document.createElement('p');
+  const createBio = document.createElement('p');
+  const createUserName = document.createElement('p');
+
+  //Setup structure of elements
+  create.appendChild(createImg,createInner);
+  //create.appendChild(createImg);
+  createInner.appendChild(createUser, createContent, createProfile, createFollowers,createFollowing, createBio);
+  createProfile.appendChild(createLink);
+
+  //set class names
+  create.classList.add('card');
+  createInner.classList.add('card-info');
+  createUser.classList.add('name');
+  createContent.classList.add('username');
+
+  //set text content
+  createImg.src = creation.avatar_url;
+  createUser.textContent = `${creation.name}`;
+  createUserName.textContent = `${creation.login}`;
+  //createProfile.textContent = `${creation.profile}`
+  createContent.textContent = `${creation.location}`;
+  createLink.textContent = `${creation.html_url}`;
+  createFollowers.textContent = `${creation.followers}`;
+  createFollowing.textContent = `${creation.following}`;
+  createBio.textContent = `${creation.bio}`; 
+
+  return create;
+
+}
+  const devCards = document.querySelector('.cards');
+
+  const github = axios.get('https://api.github.com/users/Conary36')
+  .then(response => {
+    //console.log(response.data);
+    return response.data;
+  })
+  .catch(err => {
+    console.log('error!', err);
+  });
+
+const showCard = newCreate(github);
+devCards.appendChild(showCard);
+
