@@ -113,12 +113,12 @@ function newCreate(creation){
   createUser.textContent = `Name: ${creation.name}`;
   createUserName.textContent = `Username: ${creation.login}`;
   createProfile.textContent = `Profile: `
-  createContent.textContent = `${creation.location}`;
-  createLink.textContent = `${creation.html_url}`;
+  createContent.textContent = ` Location: ${creation.location}`;
+  createLink.textContent = `URL: ${creation.html_url}`;
   createLink.href = createLink.html_url;
-  createFollowers.textContent = `${creation.followers}`;
-  createFollowing.textContent = `${creation.following}`;
-  createBio.textContent = `${creation.bio}`; 
+  createFollowers.textContent = `Followers: ${creation.followers}`;
+  createFollowing.textContent = `Following: ${creation.following}`;
+  createBio.textContent = `Bio: ${creation.bio}`; 
   
 
   return create;
